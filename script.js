@@ -13,6 +13,41 @@ if(!reduceMotion){
   document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
 }
 
+const desktopNav=document.querySelector('.nav');
+const desktopLang=document.querySelector('.lang');
+if(desktopNav&&!document.querySelector('.mobile-nav-toggle')){
+  const toggle=document.createElement('button');
+  toggle.className='mobile-nav-toggle';
+  toggle.type='button';
+  toggle.setAttribute('aria-label','Open navigation');
+  toggle.setAttribute('aria-expanded','false');
+  toggle.innerHTML='☰';
+
+  const backdrop=document.createElement('div');
+  backdrop.className='mobile-nav-backdrop';
+
+  const panel=document.createElement('aside');
+  panel.className='mobile-nav-panel';
+  panel.setAttribute('aria-hidden','true');
+
+  const close=document.createElement('button');
+  close.className='mobile-nav-close';
+  close.type='button';
+  close.setAttribute('aria-label','Close navigation');
+  close.innerHTML='×';
+  panel.appendChild(close);
+
+  desktopNav.querySelectorAll('a').forEach(link=>panel.appendChild(link.cloneNode(true)));
+  if(desktopLang){
+    const mobileLang=document.createElement('div');
+    mobileLang.className='mobile-lang';
+    desktopLang.querySelectorAll('a').forEach(link=>mobileLang.appendChild(link.cloneNode(true)));
+    panel.appendChild(mobileLang);
+  }
+
+  document.body.append(toggle,backdrop,panel);
+}
+
 const mobileNavToggle=document.querySelector('.mobile-nav-toggle');
 const mobileNavPanel=document.querySelector('.mobile-nav-panel');
 const mobileNavClose=document.querySelector('.mobile-nav-close');
