@@ -13,6 +13,22 @@ if(!reduceMotion){
   document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
 }
 
+function ensureMobileNav(){
+  if(document.querySelector('.mobile-nav-toggle')) return;
+  const nav=document.querySelector('.nav');
+  const lang=document.querySelector('.lang');
+  if(!nav) return;
+  const toggle=document.createElement('button');
+  toggle.className='mobile-nav-toggle';toggle.type='button';toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Menu');toggle.textContent='☰';
+  const backdrop=document.createElement('div');backdrop.className='mobile-nav-backdrop';
+  const panel=document.createElement('aside');panel.className='mobile-nav-panel';panel.setAttribute('aria-hidden','true');
+  const close=document.createElement('button');close.className='mobile-nav-close';close.type='button';close.setAttribute('aria-label','Close');close.textContent='×';panel.appendChild(close);
+  nav.querySelectorAll('a').forEach(a=>panel.appendChild(a.cloneNode(true)));
+  if(lang){const ml=document.createElement('div');ml.className='mobile-lang';lang.querySelectorAll('a').forEach(a=>ml.appendChild(a.cloneNode(true)));panel.appendChild(ml)}
+  document.body.append(toggle,backdrop,panel);
+}
+ensureMobileNav();
+
 const mobileNavToggle=document.querySelector('.mobile-nav-toggle');
 const mobileNavPanel=document.querySelector('.mobile-nav-panel');
 const mobileNavClose=document.querySelector('.mobile-nav-close');
@@ -32,8 +48,7 @@ document.querySelectorAll('a[href^="#"]').forEach(link=>{
     const id=link.getAttribute('href');
     const target=id&&id.length>1?document.querySelector(id):null;
     if(!target)return;
-    e.preventDefault();
-    setMobileNav(false);
+    e.preventDefault();setMobileNav(false);
     target.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'start'});
   });
 });
