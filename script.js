@@ -1,5 +1,10 @@
 const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+const desktopStylesheet=document.createElement('link');
+desktopStylesheet.rel='stylesheet';
+desktopStylesheet.href='/desktop.css?v=1';
+document.head.appendChild(desktopStylesheet);
+
 const header=document.querySelector('header');
 const onScroll=()=>header?.classList.toggle('scrolled',window.scrollY>24);
 onScroll();window.addEventListener('scroll',onScroll,{passive:true});
