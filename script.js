@@ -81,3 +81,12 @@ document.querySelectorAll('a[href^="#"]').forEach(link=>{
     target.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'start'});
   });
 });
+
+// Primary business email across all language versions.
+const contactInfo=document.querySelector('#contact .contact-info');
+if(contactInfo&&!contactInfo.querySelector('a[href^="mailto:"]')){
+  const email=document.createElement('p');
+  const label=document.documentElement.lang==='fa'?'ایمیل':document.documentElement.lang==='ar'?'البريد الإلكتروني':'EMAIL';
+  email.innerHTML=`<b>${label}</b><a href="mailto:business@shakibanameghi.com">business@shakibanameghi.com</a>`;
+  contactInfo.appendChild(email);
+}
