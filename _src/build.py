@@ -8,7 +8,7 @@ import html, json, pathlib
 
 SITE_URL = "https://shakibanameghi.com/"
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-VERSION = "21"
+VERSION = "30"
 PHONE = "+9647773944470"
 PHONE_SHOW = "+964 777 394 4470"
 EMAIL = "business@shakibanameghi.com"
@@ -162,6 +162,17 @@ CONTENT = {
 
 PROJECTS = [("Khayyam Hotel", "pm"), ("Zeytoon Hotel", "pm"), ("Olympia Hotel", "pm"),
             ("Siba Hotel", "pm"), ("Habib Hotel", "pm"), ("Doctors Building", "dc")]
+# Project photos: drop a file named after the project into images/projects/
+# (e.g. images/projects/khayyam-hotel.jpg) and rebuild; cards pick it up automatically.
+def project_image(name):
+    slug = name.lower().replace(" ", "-")
+    for ext in ("jpg", "jpeg", "png", "webp"):
+        f = ROOT / "images" / "projects" / f"{slug}.{ext}"
+        if f.exists():
+            return f"../images/projects/{slug}.{ext}"
+    return None
+
+
 IDS = ["about", "expertise", "projects", "representation", "credentials", "contact"]
 
 e = html.escape
@@ -273,9 +284,12 @@ def page(lang):
     stats = "".join(f'<div class="stat"><b>{e(n)}</b><span>{e(t)}</span></div>' for n, t in x["stats"])
     skills = "".join(f'<article class="skill">{SKILL_ICONS[i]}<h3>{e(a)}</h3><p>{e(b)}</p></article>'
                      for i, (a, b) in enumerate(c["skills"]))
-    projects = "".join(
-        f'<article class="proj{" alt" if k == "dc" else ""}"><span class="tag">{e(c[k])}</span>'
-        f'<h3 lang="en"><bdi>{e(n)}</bdi></h3><p>{e(c["mashhad"])}</p></article>' for n, k in PROJECTS)
+    def proj_card(n, k):
+        img = project_image(n)
+        pic = f'<img class="proj-img" src="{img}" alt="{e(n)}" loading="lazy">' if img else ""
+        return (f'<article class="proj{" alt" if k == "dc" else ""}{" has-img" if img else ""}">{pic}<span class="tag">{e(c[k])}</span>'
+                f'<h3 lang="en"><bdi>{e(n)}</bdi></h3><p>{e(c["mashhad"])}</p></article>')
+    projects = "".join(proj_card(n, k) for n, k in PROJECTS)
     reps = ""
     for n, countries, d in c["reps"]:
         title = f'<h3 class="native">{e(n)}</h3>' if not n.isascii() else (f'<h3 lang="en"><bdi>{e(n)}</bdi></h3>' if lang != "en" else f"<h3>{e(n)}</h3>")
@@ -317,6 +331,7 @@ def page(lang):
     <figure class="arch">
       <div class="arch-glow" aria-hidden="true"></div>
       <div class="arch-shape arch-frame" aria-hidden="true"></div>
+      <svg class="arch-draw" viewBox="0 0 100 130" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M1 130V52C1 25 27 10 50 1c23 9 49 24 49 51v78"/></svg>
       <div class="arch-shape arch-photo"><img src="../portrait.jpg" alt="{e(c["photo_alt"])}" width="720" height="900" fetchpriority="high"></div>
       <figcaption class="arch-key"><strong>{e(c["key"][0])}</strong>{e(c["key"][1])}</figcaption>
     </figure>
