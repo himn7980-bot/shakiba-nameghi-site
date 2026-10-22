@@ -8,7 +8,7 @@ import html, json, pathlib
 
 SITE_URL = "https://himn7980-bot.github.io/shakiba-nameghi-site/"
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-VERSION = "11"
+VERSION = "20"
 PHONE = "+9647773944470"
 PHONE_SHOW = "+964 777 394 4470"
 EMAIL = "business@shakibanameghi.com"
@@ -167,7 +167,7 @@ IDS = ["about", "expertise", "projects", "representation", "credentials", "conta
 e = html.escape
 ARCH_MARK = ('<svg viewBox="0 0 30 34" aria-hidden="true"><path d="M1 33V14C1 7 8 3 15 1c7 2 14 6 14 13v19z" fill="none" '
              'stroke="currentColor" stroke-width="1.6"/><path d="M8 33V17c0-3 3-5.5 7-6.5 4 1 7 3.5 7 6.5v16" fill="none" '
-             'stroke="#23807B" stroke-width="1.6"/></svg>')
+             'stroke="#C9A35E" stroke-width="1.6"/></svg>')
 WA_ICON = ('<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2'
            'a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1'
            'c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2'
@@ -198,7 +198,7 @@ def head(lang, c):
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{e(c["title"])}</title>
 <meta name="description" content="{e(c["desc"])}">
-<meta name="theme-color" content="#EEF1EF">
+<meta name="theme-color" content="#0C1630">
 <link rel="canonical" href="{url(lang)}">{alts}
 <meta property="og:type" content="profile">
 <meta property="og:title" content="{e(c["title"])}">
@@ -219,26 +219,69 @@ def head(lang, c):
 '''
 
 
+EXTRA = {
+"en": {
+  "stats": [("6", "International representations"), ("6", "Selected projects"), ("3", "Working languages"), ("2017", "In practice since")],
+  "time_h": "Path & credentials", "time_p": "The milestones and qualifications behind her practice.",
+  "timeline": [
+    ("2017–2018", "Project management at Farvardin Consortium", "Began working with the consortium on project management."),
+    ("2019", "DBA in Project Management", "Amin Institute of Higher Education. 400-hour professional programme."),
+    ("2022", "Advisor on Women’s Affairs", "Islamic City Council of Mashhad."),
+    ("Today", "Official representative in Iraq", "Representing companies from Iran, the UAE, Canada and Germany across construction, energy, trade, investment and medical tourism."),
+  ],
+},
+"fa": {
+  "stats": [("۶", "نمایندگی بین‌المللی"), ("۶", "پروژه منتخب"), ("۳", "زبان کاری"), ("۱۳۹۶", "آغاز فعالیت")],
+  "time_h": "مسیر و سوابق", "time_p": "نقاط عطف و مدارکی که پشتوانه فعالیت حرفه‌ای او هستند.",
+  "timeline": [
+    ("۱۳۹۶", "مدیریت پروژه در کنسرسیوم فروردین", "آغاز همکاری با کنسرسیوم فروردین در حوزه مدیریت پروژه (۲۰۱۷–۲۰۱۸)."),
+    ("۱۳۹۸", "DBA مدیریت پروژه", "مؤسسه آموزش عالی امین؛ دوره حرفه‌ای ۴۰۰ ساعته (۲۰۱۹)."),
+    ("۱۴۰۱", "مشاور امور بانوان", "شورای اسلامی شهر مشهد (۲۰۲۲)."),
+    ("امروز", "نماینده رسمی در عراق", "نمایندگی شرکت‌هایی از ایران، امارات، کانادا و آلمان در ساخت‌وساز، انرژی، تجارت، سرمایه‌گذاری و گردشگری سلامت."),
+  ],
+},
+"ar": {
+  "stats": [("6", "تمثيلات دولية"), ("6", "مشاريع مختارة"), ("3", "لغات العمل"), ("2017", "بداية الممارسة")],
+  "time_h": "المسيرة والمؤهلات", "time_p": "المحطات والمؤهلات التي تدعم ممارستها المهنية.",
+  "timeline": [
+    ("2017–2018", "إدارة المشاريع في كونسورتيوم فروردين", "بداية التعاون مع الكونسورتيوم في مجال إدارة المشاريع."),
+    ("2019", "DBA في إدارة المشاريع", "معهد أمين للتعليم العالي؛ برنامج مهني بواقع 400 ساعة."),
+    ("2022", "مستشارة شؤون المرأة", "المجلس الإسلامي لمدينة مشهد."),
+    ("اليوم", "الممثلة الرسمية في العراق", "تمثيل شركات من إيران والإمارات وكندا وألمانيا في الإنشاءات والطاقة والتجارة والاستثمار والسياحة العلاجية."),
+  ],
+},
+}
+
+SKILL_ICONS = [
+  # arch + drafting
+  '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 44V22C8 13 15 7 24 4c9 3 16 9 16 18v22" /><path d="M16 44V26c0-4 3.5-7 8-8.5 4.5 1.5 8 4.5 8 8.5v18"/><path d="M4 44h40"/></svg>',
+  # timeline / delivery
+  '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 10h20M14 20h22M22 30h20M10 40h16"/><circle cx="6" cy="10" r="2.5"/><circle cx="14" cy="20" r="2.5"/><circle cx="22" cy="30" r="2.5"/><circle cx="10" cy="40" r="2.5"/></svg>',
+  # globe route
+  '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18"/><path d="M6 24h36M24 6c-6 6-6 30 0 36M24 6c6 6 6 30 0 36"/><path d="M12 14c8 4 16 4 24 0M12 34c8-4 16-4 24 0"/></svg>',
+]
+
+
 def page(lang):
     c = CONTENT[lang]
+    x = EXTRA[lang]
     nav = "".join(f'<a href="#{i}">{e(t)}</a>' for i, t in zip(IDS, c["nav"]))
     langs = "".join(
         f'<a href="../{l}/" lang="{l}" hreflang="{l}"{" aria-current=\"page\"" if l == lang else ""}>{LANG_NAMES[l]}</a>' for l in LANGS)
     (c1, k1), (c2, k2) = c["cities"]
     facts = "".join(f"<div><dt>{e(a)}</dt><dd>{e(b)}</dd></div>" for a, b in c["facts"])
-    skills = "".join(f'<div class="skill"><h3>{e(a)}</h3><p>{e(b)}</p></div>' for a, b in c["skills"])
+    stats = "".join(f'<div class="stat"><b>{e(n)}</b><span>{e(t)}</span></div>' for n, t in x["stats"])
+    skills = "".join(f'<article class="skill">{SKILL_ICONS[i]}<h3>{e(a)}</h3><p>{e(b)}</p></article>'
+                     for i, (a, b) in enumerate(c["skills"]))
     projects = "".join(
-        f'<li><h3>{e(n)}</h3><span class="city">{e(c["mashhad"])}</span>'
-        f'<span class="tag{" alt" if k == "dc" else ""}">{e(c[k])}</span></li>' for n, k in PROJECTS)
+        f'<article class="proj{" alt" if k == "dc" else ""}"><span class="tag">{e(c[k])}</span>'
+        f'<h3 lang="en"><bdi>{e(n)}</bdi></h3><p>{e(c["mashhad"])}</p></article>' for n, k in PROJECTS)
     reps = ""
     for n, countries, d in c["reps"]:
         title = f'<h3 class="native">{e(n)}</h3>' if not n.isascii() else (f'<h3 lang="en"><bdi>{e(n)}</bdi></h3>' if lang != "en" else f"<h3>{e(n)}</h3>")
-        reps += (f'<article class="rep"><div class="countries">{"".join(f"<span>{e(x)}</span>" for x in countries)}</div>'
+        reps += (f'<article class="rep"><div class="countries">{"".join(f"<span>{e(cc)}</span>" for cc in countries)}</div>'
                  f'{title}<p>{e(d)}</p></article>')
-    creds = ""
-    for y, t, d in c["creds"]:
-        yr = f'<span class="yr">{e(y)}</span>' if y else ""
-        creds += f'<div class="cred{"" if y else " noyr"}">{yr}<div><h3>{e(t)}</h3><p>{e(d)}</p></div></div>'
+    timeline = "".join(f'<li><span class="when">{e(w)}</span><div><h3>{e(t)}</h3><p>{e(d)}</p></div></li>' for w, t, d in x["timeline"])
     wa, ph, em, bs = c["ch"]
     flang = "".join(f'<a href="../{l}/" lang="{l}">{LANG_NAMES[l]}</a>' for l in LANGS if l != lang)
 
@@ -256,64 +299,67 @@ def page(lang):
 </header>
 <main id="main">
 <section class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
   <div class="wrap hero-grid">
     <div class="hero-text">
-      <h1>{e(c["name"])}</h1>
-      <p class="role">{e(c["role"])}</p>
-      <p class="intro">{e(c["intro"])}</p>
-      <div class="actions">
+      <h1 class="in in1">{e(c["name"])}</h1>
+      <p class="role in in2">{e(c["role"])}</p>
+      <p class="intro in in3">{e(c["intro"])}</p>
+      <div class="actions in in4">
         <a class="btn btn-solid" href="{WHATSAPP}" target="_blank" rel="noopener">{WA_ICON}{e(c["cta_wa"])}</a>
         <a class="btn btn-line" href="#projects">{e(c["cta_work"])}</a>
       </div>
-      <div class="route">
+      <div class="route in in5">
         <p class="route-cap">{e(c["route_cap"])}</p>
         <div class="route-line"><b>{e(c1)}<small>{e(k1)}</small></b><i></i><b>{e(c2)}<small>{e(k2)}</small></b></div>
       </div>
     </div>
     <figure class="arch">
-      <div class="arch-shape arch-back"></div>
+      <div class="arch-glow" aria-hidden="true"></div>
+      <div class="arch-shape arch-frame" aria-hidden="true"></div>
       <div class="arch-shape arch-photo"><img src="../portrait.jpg" alt="{e(c["photo_alt"])}" width="720" height="900" fetchpriority="high"></div>
       <figcaption class="arch-key"><strong>{e(c["key"][0])}</strong>{e(c["key"][1])}</figcaption>
     </figure>
   </div>
+  <div class="wrap stats">{stats}</div>
 </section>
 
-<section class="section" id="about">
+<section class="section light" id="about">
   <div class="wrap split">
     <div class="head"><h2>{e(c["about_h"])}</h2><p>{e(c["about_p"])}</p></div>
     <div><p class="profile">{e(c["profile"])}</p><dl class="facts">{facts}</dl></div>
   </div>
 </section>
 
-<section class="section" id="expertise">
-  <div class="wrap split">
-    <div class="head"><h2>{e(c["exp_h"])}</h2><p>{e(c["exp_p"])}</p></div>
+<section class="section dark pattern" id="expertise">
+  <div class="wrap">
+    <div class="head center"><h2>{e(c["exp_h"])}</h2><p>{e(c["exp_p"])}</p></div>
     <div class="skills">{skills}</div>
   </div>
 </section>
 
-<section class="section" id="projects">
-  <div class="wrap split">
+<section class="section light" id="projects">
+  <div class="wrap">
     <div class="head"><h2>{e(c["proj_h"])}</h2><p>{e(c["proj_p"])}</p></div>
-    <ul class="projects">{projects}</ul>
+    <div class="projs">{projects}</div>
   </div>
 </section>
 
-<section class="section on-dark" id="representation">
-  <div class="wrap split">
+<section class="section dark" id="representation">
+  <div class="wrap">
     <div class="head"><h2>{e(c["rep_h"])}</h2><p>{e(c["rep_p"])}</p></div>
     <div class="reps">{reps}</div>
   </div>
 </section>
 
-<section class="section" id="credentials">
+<section class="section light" id="credentials">
   <div class="wrap split">
-    <div class="head"><h2>{e(c["cred_h"])}</h2><p>{e(c["cred_p"])}</p></div>
-    <div class="creds">{creds}</div>
+    <div class="head"><h2>{e(x["time_h"])}</h2><p>{e(x["time_p"])}</p></div>
+    <ol class="timeline">{timeline}</ol>
   </div>
 </section>
 
-<section class="section on-dark contact" id="contact">
+<section class="section dark pattern contact" id="contact">
   <div class="wrap contact-grid">
     <div>
       <h2>{e(c["contact_h"])}</h2>
