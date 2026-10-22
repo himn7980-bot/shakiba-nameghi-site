@@ -8,7 +8,7 @@ import html, json, pathlib
 
 SITE_URL = "https://shakibanameghi.com/"
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-VERSION = "30"
+VERSION = "31"
 PHONE = "+9647773944470"
 PHONE_SHOW = "+964 777 394 4470"
 EMAIL = "business@shakibanameghi.com"
@@ -203,12 +203,13 @@ def head(lang, c):
     }
     others = [l for l in LANGS if l != lang]
     return f'''<!doctype html>
-<html lang="{lang}" dir="{c["dir"]}" class="no-js">
+<html lang="{lang}" dir="{c["dir"]}" class="no-js" translate="no">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{e(c["title"])}</title>
 <meta name="description" content="{e(c["desc"])}">
+<meta name="google" content="notranslate">
 <meta name="theme-color" content="#0B0F10">
 <link rel="canonical" href="{url(lang)}">{alts}
 <meta property="og:type" content="profile">
