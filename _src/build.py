@@ -8,7 +8,7 @@ import html, json, pathlib
 
 SITE_URL = "https://himn7980-bot.github.io/shakiba-nameghi-site/"
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-VERSION = "20"
+VERSION = "21"
 PHONE = "+9647773944470"
 PHONE_SHOW = "+964 777 394 4470"
 EMAIL = "business@shakibanameghi.com"
@@ -167,7 +167,7 @@ IDS = ["about", "expertise", "projects", "representation", "credentials", "conta
 e = html.escape
 ARCH_MARK = ('<svg viewBox="0 0 30 34" aria-hidden="true"><path d="M1 33V14C1 7 8 3 15 1c7 2 14 6 14 13v19z" fill="none" '
              'stroke="currentColor" stroke-width="1.6"/><path d="M8 33V17c0-3 3-5.5 7-6.5 4 1 7 3.5 7 6.5v16" fill="none" '
-             'stroke="#C9A35E" stroke-width="1.6"/></svg>')
+             'stroke="#1FB5A8" stroke-width="1.6"/></svg>')
 WA_ICON = ('<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2'
            'a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1'
            'c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2'
@@ -198,7 +198,7 @@ def head(lang, c):
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{e(c["title"])}</title>
 <meta name="description" content="{e(c["desc"])}">
-<meta name="theme-color" content="#0C1630">
+<meta name="theme-color" content="#0B0F10">
 <link rel="canonical" href="{url(lang)}">{alts}
 <meta property="og:type" content="profile">
 <meta property="og:title" content="{e(c["title"])}">
