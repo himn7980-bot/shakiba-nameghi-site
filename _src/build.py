@@ -6,7 +6,7 @@ To move to a custom domain, change SITE_URL.
 """
 import html, json, pathlib
 
-SITE_URL = "https://himn7980-bot.github.io/shakiba-nameghi-site/"
+SITE_URL = "https://shakibanameghi.com/"
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 VERSION = "21"
 PHONE = "+9647773944470"

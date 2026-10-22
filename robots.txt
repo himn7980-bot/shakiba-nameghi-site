@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://himn7980-bot.github.io/shakiba-nameghi-site/sitemap.xml
+Sitemap: https://shakibanameghi.com/sitemap.xml
